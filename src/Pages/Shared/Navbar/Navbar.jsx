@@ -7,6 +7,7 @@ import useAuth from '../../../Hooks/useAuth';
 const Navbar = () => {
 
   const { user, logOut } = useAuth()
+  console.log(user);
 
   const handleLogout = () => {
     logOut();
@@ -28,7 +29,11 @@ const Navbar = () => {
       to="/dashboard"
     >Dashboard</NavLink>
     {
-      user ? <button onClick={handleLogout} className='btnp'>Logout</button> : <NavLink className="" to="/login">Login</NavLink>
+      user ? <div className='flex gap-4 items-center'>
+        <img className='w-[50px] h-[50px] rounded-full' src={user?.photoURL} alt="" />
+        <button onClick={handleLogout} className='btnp'>Logout</button>
+
+      </div> : <NavLink className="" to="/login">Login</NavLink>
     }
 
   </>

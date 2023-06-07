@@ -18,7 +18,7 @@ const Login = () => {
         })
     }
     return (
-        <div className='flex justify-around items-center'>
+        <div className='flex pt-20 justify-around items-center'>
             <div>
                 <img width={600} src={bg} alt="" />
             </div>

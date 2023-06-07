@@ -7,49 +7,79 @@ const img_hosting_token = import.meta.env.VITE_image_upload_token
 
 const Signup = () => {
     const [error, setError] = useState("");
-    const { createUser, updateUserProfile } = useAuth()
+    const { createUser, updateUserProfile, setLoading } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
 
     const onSubmit = (data) => {
-        console.log(data);
-        const { name, email, password, confirmpassword, photo } = data;
+        const { name, email, password, confirmpassword } = data;
         if (password !== confirmpassword) {
             setError("Password Not Matched");
             return;
         };
-        const formData = new FormData();
-        formData.append('image', data.photo)
+        
+        // Image Upload
+    const image = data.photo[0]
+    const formData = new FormData()
+    formData.append('image', image)
 
-        fetch(img_hosting_url, {
-            method: 'POST',
-            body: formData
-        })
-            .then(res => res.json())
-            .then(imgRes => {
-                console.log(imgRes);
-                if (imgRes.success) {
-                    const photo = imgRes.data.display_url;
-                    createUser(email, password)
-                        .then(result => {
-                            console.log(result.user);
-                            if (result.user) {
-                                updateUserProfile(name, photo)
-                            }
-                            setError("")
-                            navigate('/')
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_image_upload_token
+    }`
+    fetch(url, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(imageData => {
+        const imageUrl = imageData.data.display_url;
+        console.log(imageUrl);
 
-                        })
-                }
-            })
+        createUser(email, password)
+          .then(result => {
+            updateUserProfile(name, imageUrl)
+              .then(() => {
+                
+              })
+              .catch(err => {
+                setLoading(false)
+                console.log(err.message)
+              })
+          })
+          .catch(err => {
+            setLoading(false)
+            console.log(err.message)
+            
+          })
+      })
+      .catch(err => {
+        setLoading(false)
+        console.log(err.message)
+        
+      })
+
+    return
+       
+
+
+        // createUser(email, password)
+        //         .then(result => {
+        //             console.log(result.user);
+        //             if (result.user) {
+        //                 updateUserProfile(name, photo)
+        //             }
+        //             setError("")
+        //             navigate('/')
+
+        //         })
+
 
 
 
 
     }
     return (
-        <div className='flex justify-around items-center'>
+        <div className='flex pt-20 justify-around items-center'>
             <div>
                 <img width={600} src={bg} alt="" />
             </div>
@@ -88,7 +118,7 @@ const Signup = () => {
                         <label className="peer-focus:font-medium absolute text-sm text-rose-500 dark:text-rose-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password</label>
                     </div>
                     <div className="relative mt-10 z-0 w-full group">
-                        <input type="file" className="file-input mb-6 file-input-bordered file-input-secondary mt-3 w-full max-w-xs" />
+                        <input {...register("photo", { required: true })} type="file" className="file-input mb-6 file-input-bordered file-input-secondary mt-3 w-full max-w-xs" />
                         <label className="peer-focus:font-medium block absolute text-sm text-rose-500 dark:text-rose-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600  peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Photo URL</label>
                     </div>
                     <input className='btnp w-full my-4' type="submit" value="Login" />

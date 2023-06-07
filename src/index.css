@@ -12,6 +12,7 @@
     background-color: beige;
     border: 5px;
     border-bottom: #F63E7B;
+    color: black !important;
 }
 
 .btnp:hover {
