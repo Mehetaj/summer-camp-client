@@ -20,16 +20,16 @@ const Banner = () => {
                 className="mySwiper"
             >
                 <SwiperSlide>
-                    <img src={img1} alt="" />
+                    <img className='w-full' src={img1} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={img2} alt="" />
+                    <img className='w-full' src={img2} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={img3} alt="" />
+                    <img className='w-full' src={img3} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={img4} alt="" />
+                    <img className='w-full' src={img4} alt="" />
                 </SwiperSlide>
             </Swiper>
         </div>
