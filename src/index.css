@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+    color: #F63E7B;
+    font-weight: bold;
+}
+
+.btnp {
+    padding: 10px 20px;
+    background-color: beige;
+    border: 5px;
+    border-bottom: #F63E7B;
+}
+
+.btnp:hover {
+    background-color: #F63E7B;
+    color: white;
+    cursor: pointer;
+    transition: all ease 0.5s;
+}
