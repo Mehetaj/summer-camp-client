@@ -3,9 +3,12 @@ import bg from '../../../assets/Login.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
+import useAxiosSecure from '../../../Hooks/useAxios';
+import Swal from 'sweetalert2';
 const img_hosting_token = import.meta.env.VITE_image_upload_token
 
 const Signup = () => {
+    const [axiosSecure] = useAxiosSecure()
     const [error, setError] = useState("");
     const { createUser, updateUserProfile, setLoading } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -37,6 +40,22 @@ const Signup = () => {
 
         createUser(email, password)
           .then(result => {
+            const saveUser = { name: name, email: email }
+            if (result.user) {
+                axiosSecure.post("/users", {saveUser})
+                .then(res => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                    }
+                })
+            }
+
             updateUserProfile(name, imageUrl)
               .then(() => {
                 
