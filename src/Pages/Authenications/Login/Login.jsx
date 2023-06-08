@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import bg from '../../../assets/mobile-login-concept-illustration_114360-83.avif'
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
@@ -8,12 +8,14 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const {signIn} = useAuth();
     const navigate = useNavigate()
+    const location = useLocation();
+    const from = location?.state?.from?.pathname
     const onSubmit = (data) => {
         console.log(data);
         signIn(data.email, data.password)
         .then(result => {
             console.log(result.user);
-            navigate("/")
+            navigate( from ,{replace: true} || "/")
 
         })
     }
