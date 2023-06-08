@@ -20,65 +20,64 @@ const Signup = () => {
             setError("Password Not Matched");
             return;
         };
-        
+
         // Image Upload
-    const image = data.photo[0]
-    const formData = new FormData()
-    formData.append('image', image)
+        const image = data.photo[0]
+        const formData = new FormData()
+        formData.append('image', image)
 
-    const url = `https://api.imgbb.com/1/upload?key=${
-      import.meta.env.VITE_image_upload_token
-    }`
-    fetch(url, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(imageData => {
-        const imageUrl = imageData.data.display_url;
-        console.log(imageUrl);
+        const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_token
+            }`
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(imageData => {
+                const imageUrl = imageData.data.display_url;
+                console.log(imageUrl);
 
-        createUser(email, password)
-          .then(result => {
-            const saveUser = { name: name, email: email }
-            if (result.user) {
-                axiosSecure.post("/users", {saveUser})
-                .then(res => {
-                    if (res.data.insertedId) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 1500
-                          })
-                    }
-                })
-            }
+                createUser(email, password)
+                    .then(result => {
+                        // const saveUser = { name: name, email: email }
+                        if (result.user) {
+                            axiosSecure.post("/users", { name: name, email: email })
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Your work has been saved',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        })
+                                    }
+                                })
+                        }
 
-            updateUserProfile(name, imageUrl)
-              .then(() => {
-                
-              })
-              .catch(err => {
+                        updateUserProfile(name, imageUrl)
+                            .then(() => {
+
+                            })
+                            .catch(err => {
+                                setLoading(false)
+                                console.log(err.message)
+                            })
+                    })
+                    .catch(err => {
+                        setLoading(false)
+                        console.log(err.message)
+
+                    })
+            })
+            .catch(err => {
                 setLoading(false)
                 console.log(err.message)
-              })
-          })
-          .catch(err => {
-            setLoading(false)
-            console.log(err.message)
-            
-          })
-      })
-      .catch(err => {
-        setLoading(false)
-        console.log(err.message)
-        
-      })
 
-    return
-       
+            })
+
+        return
+
 
 
         // createUser(email, password)

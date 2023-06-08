@@ -4,6 +4,8 @@ import Login from "../Pages/Authenications/Login/Login";
 import Signup from "../Pages/Authenications/Signup/Signup";
 import Home from "../Pages/Home/Home/Home";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import AddClass from "../Pages/Dashboard/Instractor/AddClass";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +28,17 @@ const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard />
+        element: <Dashboard />,
+        children: [
+            {
+                path: 'add-class',
+                element: <AddClass />
+            },
+            {
+                path: 'manageusers',
+                element: <ManageUsers />
+            }
+        ]
     }
 ])
 

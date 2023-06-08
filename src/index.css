@@ -9,14 +9,14 @@
 
 .btnp {
     padding: 10px 20px;
-    background-color: beige;
+    background-color: #F63E7B;
     border: 5px;
     border-bottom: #F63E7B;
-    color: black !important;
+    color: white !important;
 }
 
 .btnp:hover {
-    background-color: #F63E7B;
+    background-color: red;
     color: white;
     cursor: pointer;
     transition: all ease 0.5s;

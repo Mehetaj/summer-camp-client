@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import logo from '/logo.jpg'
+import { Link, Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
-    const [instructor, setInstructor] = useState(true)
+    const [instructor, setInstructor] = useState(false);
+    const [admin, setAdmin] = useState(true)
     return (
         <div>
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center justify-center">
+                <div className="drawer-content">
                     {/* Page content here */}
                     <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-
+                    <Outlet />
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
@@ -21,16 +23,28 @@ const Dashboard = () => {
                         </div>
                         {/* Sidebar content here */}
                         {
-                            instructor ? <div>
-                                <li><a>Add a Class</a></li>
-                                <li><a>My Class</a></li>
+                            instructor && 
+                            <div>
+                                <li><Link to="/dashboard/add-class">Add a Class</Link></li>
+                                <li><Link>My Class</Link></li>
                             </div>
-                                :
-                                <div>
-                                    <li><a>My Selected Class</a></li>
-                                    <li><a>Enrolled Class</a></li>
-                                </div>
                         }
+                        {
+                            admin && 
+                            <div>
+                                <li><Link>Manage Class</Link></li>
+                                <li><Link to="/dashboard/manageusers">Manage Users</Link></li>
+                            </div>
+                        }
+                        {
+                            !instructor && !admin && 
+                            <div>
+                                <li><Link>My Selected Classes</Link></li>
+                                <li><Link>My Enrolled Classes</Link></li>
+                                <li><Link>Payment History</Link></li>
+                            </div>
+                        }
+                        <Link className='btnp w-full' to="/">Back to Home</Link>
                     </ul>
 
                 </div>
