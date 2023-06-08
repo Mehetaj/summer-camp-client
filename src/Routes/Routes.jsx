@@ -31,14 +31,23 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
+            // users Routes
+
+            // Instructor Routes
             {
                 path: 'add-class',
                 element: <AddClass />
             },
+            
+            {
+                path: 'myclass',
+                element
+            },
+            // Admin Routes
             {
                 path: 'manageusers',
                 element: <ManageUsers />
-            }
+            },
         ]
     }
 ])
