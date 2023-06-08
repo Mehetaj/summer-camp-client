@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import logo from '/logo.jpg'
 import { Link, Outlet } from 'react-router-dom';
+import useAdmin from '../../Hooks/useAdmin'
 
 const Dashboard = () => {
     const [instructor, setInstructor] = useState(false);
-    const [admin, setAdmin] = useState(true)
+    const [isAdmin] = useAdmin()
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -30,14 +31,14 @@ const Dashboard = () => {
                             </div>
                         }
                         {
-                            admin && 
+                            isAdmin && 
                             <div>
                                 <li><Link>Manage Class</Link></li>
                                 <li><Link to="/dashboard/manageusers">Manage Users</Link></li>
                             </div>
                         }
                         {
-                            !instructor && !admin && 
+                            !instructor && !isAdmin && 
                             <div>
                                 <li><Link>My Selected Classes</Link></li>
                                 <li><Link>My Enrolled Classes</Link></li>
