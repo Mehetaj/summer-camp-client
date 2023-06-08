@@ -6,6 +6,7 @@ import useAdmin from '../../Hooks/useAdmin'
 const Dashboard = () => {
     const [instructor, setInstructor] = useState(false);
     const [isAdmin] = useAdmin()
+    // const isAdmin = true;
     return (
         <div>
             <div className="drawer lg:drawer-open">
@@ -23,28 +24,33 @@ const Dashboard = () => {
                             <p className='text-2xl font-bold'>Music Hub</p>
                         </div>
                         {/* Sidebar content here */}
-                        {
+                        {/* {
                             instructor && 
                             <div>
                                 <li><Link to="/dashboard/add-class">Add a Class</Link></li>
                                 <li><Link>My Class</Link></li>
                             </div>
-                        }
+                        } */}
                         {
-                            isAdmin && 
-                            <div>
-                                <li><Link>Manage Class</Link></li>
-                                <li><Link to="/dashboard/manageusers">Manage Users</Link></li>
-                            </div>
+                            isAdmin ?
+                                <div>
+                                    <li><Link>Manage Class</Link></li>
+                                    <li><Link to="/dashboard/manageusers">Manage Users</Link></li>
+                                </div> :
+                                <div>
+                                    <li><Link>My Selected Classes</Link></li>
+                                    <li><Link>My Enrolled Classes</Link></li>
+                                    <li><Link>Payment History</Link></li>
+                                </div>
                         }
-                        {
-                            !instructor && !isAdmin && 
+                        {/* {
+                            !isAdmin && 
                             <div>
                                 <li><Link>My Selected Classes</Link></li>
                                 <li><Link>My Enrolled Classes</Link></li>
                                 <li><Link>Payment History</Link></li>
                             </div>
-                        }
+                        } */}
                         <Link className='btnp w-full' to="/">Back to Home</Link>
                     </ul>
 

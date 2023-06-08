@@ -44,6 +44,7 @@ const Signup = () => {
                             axiosSecure.post("/users", { name: name, email: email })
                                 .then(res => {
                                     if (res.data.insertedId) {
+                                        navigate("/")
                                         Swal.fire({
                                             position: 'center',
                                             icon: 'success',
