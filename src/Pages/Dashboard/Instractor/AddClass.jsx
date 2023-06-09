@@ -6,7 +6,8 @@ import Swal from 'sweetalert2';
 
 const AddClass = () => {
     const { user } = useAuth()
-    const [axiosSecure] = useAxiosSecure()
+    // const [axiosSecure] = useAxiosSecure()
+    // console.log(user);
     // console.log(user.email);
 
     const handleAddClass = (e) => {
@@ -28,13 +29,11 @@ const AddClass = () => {
                 const imgUrl = imgData.data.display_url;
                 const newClass = {name,seats,price, photo: imgUrl, instructor: user?.displayName, email: user?.email}
 
-                // axiosSecure.post('/allclass', newClass)
-
-                fetch("http://localhost:5000/allclass", {
-                    method: 'POST',
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify(newClass)
-                })
+                // fetch("http://localhost:5000/allclass", {
+                //     method: 'POST',
+                //     headers: { 'content-type': 'application/json' },
+                //     body: JSON.stringify(newClass)
+                // })
 
                 fetch("http://localhost:5000/classes", {
                     method: 'POST',

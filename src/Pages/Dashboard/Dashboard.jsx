@@ -5,9 +5,10 @@ import useAdmin from '../../Hooks/useAdmin'
 import useInstructor from '../../Hooks/useInstructor';
 
 const Dashboard = () => {
-    // const [instructor, setInstructor] = useState(true);
+    // const [isInstructor, setInstructor] = useState(false);
     const [isInstructor] = useInstructor()
     const [isAdmin] = useAdmin()
+    // const isAdmin = true
 
 
     // const isAdmin = true;

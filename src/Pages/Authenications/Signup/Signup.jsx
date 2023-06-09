@@ -41,7 +41,7 @@ const Signup = () => {
                     .then(result => {
                         // const saveUser = { name: name, email: email }
                         if (result.user) {
-                            axiosSecure.post("/users", { name: name, email: email })
+                            axiosSecure.post("/users", { name: name, email: email, photo: imageUrl })
                                 .then(res => {
                                     if (res.data.insertedId) {
                                         navigate("/")

@@ -7,6 +7,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import AddClass from "../Pages/Dashboard/Instractor/AddClass";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import PrivateRoute from "./PrivateRoutes";
+import Myclass from "../Pages/Dashboard/Instractor/Myclass";
 
 const router = createBrowserRouter([
     {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <PrivateRoute><Dashboard /></PrivateRoute>,
+        element: <Dashboard />,
         children: [
             // users Routes
 
@@ -38,10 +39,10 @@ const router = createBrowserRouter([
                 path: 'add-class',
                 element: <AddClass />
             },
-            
+
             {
                 path: 'myclass',
-                element
+                element: <Myclass />
             },
             // Admin Routes
             {

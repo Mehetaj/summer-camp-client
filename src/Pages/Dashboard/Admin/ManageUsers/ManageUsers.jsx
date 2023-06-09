@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import useAxiosSecure from '../../../../Hooks/useAxios';
 import { FaJenkins, FaUserShield } from 'react-icons/fa'
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 
 const ManageUsers = () => {
-    // const [users, setUsers] = useState([])
     const [axiosSecure] = useAxiosSecure();
     const { data: users = [], refetch } = useQuery(['users'], async () => {
         const res = await axiosSecure.get('/users');
@@ -34,16 +33,18 @@ const ManageUsers = () => {
 
     const handleMakeInstructor = (user) => {
         console.log(user);
-        fetch(`http://localhost:5000/users/instructor/${user._id}`, {method: 'PATCH'}).then(res => res.json()).then(data => {
+        fetch(`http://localhost:5000/users/instructor/${user._id}`, { method: 'PATCH' }).then(res => res.json()).then(data => {
             if (data.modifiedCount) {
                 refetch();
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
-                    title: `${user.name} is an Admin Now`,
+                    title: `${user.name} is an Instructor  Now`,
                     showConfirmButton: false,
                     timer: 1500
                 })
+                axiosSecure.post("/allinstructors", user)
+
             }
         })
     }
@@ -93,8 +94,8 @@ const ManageUsers = () => {
                                     <th>
                                         {
                                             user.role === 'instructor' ? 'instructor' : <button
-                                            onClick={() => handleMakeInstructor(user)}
-                                            className='btn bg-white text-black
+                                                onClick={() => handleMakeInstructor(user)}
+                                                className='btn bg-white text-black
                                     border-none hover:text-yellow-400'><FaJenkins /></button>
                                         }
                                     </th>
