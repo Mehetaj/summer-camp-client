@@ -8,7 +8,11 @@ import AddClass from "../Pages/Dashboard/Instractor/AddClass";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import PrivateRoute from "./PrivateRoutes";
 import Myclass from "../Pages/Dashboard/Instractor/Myclass";
-import ManageClass from "../Pages/Dashboard/Admin/ManageUsers/ManageClass";
+import ManageClass from "../Pages/Dashboard/Admin/ManageClass/ManageClass";
+import UpdateClass from "../Pages/Dashboard/Instractor/UpdateClass";
+import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
+import FeedBackModal from "../Pages/Dashboard/Admin/ManageClass/FeedBackModal";
 
 const router = createBrowserRouter([
     {
@@ -31,28 +35,33 @@ const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard />,
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
             // users Routes
 
             // Instructor Routes
             {
                 path: 'add-class',
-                element: <AddClass />
+                element: <InstructorRoute><AddClass /></InstructorRoute>
             },
 
             {
                 path: 'myclass',
-                element: <Myclass />
+                element: <InstructorRoute><Myclass /></InstructorRoute>
+            },
+            {
+                path: 'updateclass/:id',
+                element: <InstructorRoute><UpdateClass /></InstructorRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/classes/${params.id}`)
             },
             // Admin Routes
             {
                 path: 'manageusers',
-                element: <ManageUsers />
+                element: <AdminRoute><ManageUsers /></AdminRoute>
             },
             {
                 path: 'manageclass',
-                element: <ManageClass />
+                element: <AdminRoute><ManageClass /></AdminRoute>
             }
         ]
     }

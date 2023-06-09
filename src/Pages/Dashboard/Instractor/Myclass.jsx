@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxios';
 import useAuth from '../../../Hooks/useAuth';
 import { FaPenAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom';
 
 const Myclass = () => {
     const [classes, setClasses] = useState([])
@@ -65,7 +66,7 @@ const Myclass = () => {
                                             No Feedback
                                         </td>
                                         <th>
-                                            <button className="btn bg-rose-400 text-white btn-ghost text-xl"><FaPenAlt /></button>
+                                            <Link to={`/dashboard/updateclass/${item._id}`} className="btn bg-rose-400 text-white btn-ghost text-xl"><FaPenAlt /></Link>
                                         </th>
                                     </tr>
                             )

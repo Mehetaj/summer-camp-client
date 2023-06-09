@@ -6,10 +6,11 @@ const ClassDemo = () => {
     const [classes, setClasses] = useState([]);
     const [axiosSecure] = useAxiosSecure();
     useEffect(() => {
-        axiosSecure.get("classes")
+        axiosSecure.get("/classes")
         .then(data => {
             // console.log(data);
-            setClasses(data.data)
+            const filtered = data.data.filter(item => item.status === 'Approved')
+            setClasses(filtered)
         })
     }, [])
     return (
