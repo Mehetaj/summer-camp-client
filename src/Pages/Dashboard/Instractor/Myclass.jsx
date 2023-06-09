@@ -34,8 +34,8 @@ const Myclass = () => {
                             <th>Image</th>
                             <th>Name</th>
                             <th>Total Student</th>
-                            <th>Instructor Name</th>
-                            <th>Instructor Email</th>
+                            <th>Status</th>
+                            <th>Feedback</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -59,10 +59,10 @@ const Myclass = () => {
                                         </td>
                                         <td>0</td>
                                         <td>
-                                            {item.instructor}
+                                            { item.status? item.status : 'Pending'}
                                         </td>
                                         <td>
-                                            {item.email}
+                                            No Feedback
                                         </td>
                                         <th>
                                             <button className="btn bg-rose-400 text-white btn-ghost text-xl"><FaPenAlt /></button>
