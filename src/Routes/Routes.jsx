@@ -17,6 +17,7 @@ import Classes from "../Pages/Classes/Classes";
 import Instractor from "../Pages/Instractor/Instractor";
 import MySelectedClass from "../Pages/Dashboard/User/MySelectedClass";
 import Payment from "../Pages/Dashboard/User/Payment/Payment";
+import CheckoutFrom from "../Pages/Dashboard/User/Payment/CheckoutFrom";
 
 const router = createBrowserRouter([
     {
@@ -56,8 +57,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'payment/:id',
-                element: <Payment />,
-                loader: () => fetch(``)
+                element: <Payment />
             },
 
             // Instructor Routes
