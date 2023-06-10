@@ -4,20 +4,24 @@ import './checkout.css'
 import useAuth from '../../../../Hooks/useAuth';
 import useAxiosSecure from '../../../../Hooks/useAxios';
 
-const CheckoutFrom = () => {
+const CheckoutFrom = ({ data }) => {
+    console.log(data);
+    // const price = parseInt(data.price)
+    // console.log(typeof price);
     const stripe = useStripe();
     const elements = useElements();
     const [error, setError] = useState("")
     const { user } = useAuth();
-    const [axiosSecure] = useAxiosSecure();
+    const [clientSecret, setClientSecret] = useState('')
 
+    const [axiosSecure] = useAxiosSecure()
 
-    // useEffect(() => {
-    //     if (condition) {
-
-    //     }
-    // }, [])
-
+    useEffect(() => {
+        axiosSecure.post("/create-payment-intent", {price: data})
+        .then(res => {
+            console.log(res.data);
+        })
+    },[])
 
 
 
@@ -47,8 +51,27 @@ const CheckoutFrom = () => {
             setError("")
         }
 
-        console.log(card);
+        // console.log(card);
 
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: user?.displayName || 'anonymous',
+                        email: user?.email || 'anonymous',
+                        date: new Date()
+                    },
+                },
+            },
+        );
+
+        if (confirmError) {
+            setError(confirmError.message)
+        }
+
+        console.log(paymentIntent);
     }
 
     return (
@@ -70,7 +93,7 @@ const CheckoutFrom = () => {
                         },
                     }}
                 />
-                <button className='btnp w-full rounded-md' type="submit" disabled={!stripe}>
+                <button className='btn bg-rose-400 hover:bg-green-400 text-white w-full' type="submit" disabled={!stripe}>
                     Pay
                 </button>
                 <p className='error'> {error.message} </p>

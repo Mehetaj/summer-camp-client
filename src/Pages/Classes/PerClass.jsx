@@ -20,16 +20,14 @@ const PerClass = ({ classes }) => {
     const {user} = useAuth()
 
     const handleAddClass = (classes) => {
-        console.log(classes);
-
+        // console.log(classes);
         const {name, price,photo} = classes
-
         const savedClass = {name,price,photo,email: user?.email}
-
         axiosSecure.post("/selectedClass", savedClass)
         .then(data => {
             // console.log(data.data);
-            if (data.data.insertedId) {
+            if (data.data) {
+                console.log(data.data);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

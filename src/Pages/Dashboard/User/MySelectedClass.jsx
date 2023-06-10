@@ -6,23 +6,23 @@ import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import Myclass from '../Instractor/Myclass';
 import PayBTN from './Payment/PayBTN';
+import useCart from '../../../Hooks/useCart';
+import { Link } from 'react-router-dom';
 
 const MySelectedClass = () => {
     const [axiosSecure] = useAxiosSecure()
 
-    // const [myClass, setMyClass] = useState([]);
-    const { user } = useAuth()
 
+    // const { data: myClass = [], refetch } = useQuery({
+    //     queryKey: ['deleteClass'],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get("/selectedClass");
+    //         const filtered = res.data.filter(item => item.email === user.email)
+    //         return filtered
+    //     }
+    // })
 
-    const { data: myClass = [], refetch } = useQuery({
-        queryKey: ['deleteClass'],
-        queryFn: async () => {
-            const res = await axiosSecure.get("/selectedClass");
-            const filtered = res.data.filter(item => item.email === user.email)
-            return filtered
-        }
-    })
-
+    const [cart, refetch] = useCart()
 
     const handleDelete = (item) => {
         console.log(item._id);
@@ -80,7 +80,7 @@ const MySelectedClass = () => {
                         <tbody className=' font-semibold'>
                             {/* row 1 */}
                             {
-                                myClass.map((myClass, index) => <tr key={index}>
+                                cart.map((myClass, index) => <tr key={index}>
                                     <th>{index + 1}</th>
                                     <td>
                                         <div className="flex items-center space-x-3">
@@ -101,7 +101,7 @@ const MySelectedClass = () => {
                                     </td>
                                     <th>
                                         {/* <Link to={`/dashbaord/payment`} className="btn w-[150px] btn-ghost ">Pay <span>${myClass.price}</span></Link> */}
-                                        <PayBTN item={myClass}/>
+                                        <Link to={`/dashboard/payment/${myClass._id}`}> <button className='btn'>Pay</button></Link> 
                                     </th>
                                 </tr>)
                             }
