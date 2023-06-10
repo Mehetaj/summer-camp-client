@@ -13,6 +13,8 @@ import UpdateClass from "../Pages/Dashboard/Instractor/UpdateClass";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
 import FeedBackModal from "../Pages/Dashboard/Admin/ManageClass/FeedBackModal";
+import Classes from "../Pages/Classes/Classes";
+import Instractor from "../Pages/Instractor/Instractor";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
             {
                 path: 'signup',
                 element: <Signup />
+            },
+            {
+                path: 'classes',
+                element: <Classes />
+            },
+            {
+                path: 'instractor',
+                element: <Instractor />
             }
         ]
     },

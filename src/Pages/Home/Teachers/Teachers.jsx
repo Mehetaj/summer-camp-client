@@ -26,7 +26,7 @@ const Teachers = () => {
 
             <div className='grid md:grid-cols-2 text-center mx-auto lg:grid-cols-3 mt-10 gap-20'>
                 {
-                    teachers.map(teacher => <Teacher teacher={teacher} key={teacher._id}/>)
+                    teachers.slice(0,6).map(teacher => <Teacher teacher={teacher} key={teacher._id}/>)
                 }
             </div>
         </div>

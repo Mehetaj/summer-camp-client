@@ -25,7 +25,7 @@ const ClassDemo = () => {
             </div>
             <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-14'>
                 {
-                    classes.map(perClass => <OneClassDemo key={perClass._id} classes={perClass}/>)
+                    classes.slice(0,6).map(perClass => <OneClassDemo key={perClass._id} classes={perClass}/>)
                 }
             </div>
         </div>
