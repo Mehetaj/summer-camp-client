@@ -15,6 +15,7 @@ import InstructorRoute from "./InstructorRoute";
 import FeedBackModal from "../Pages/Dashboard/Admin/ManageClass/FeedBackModal";
 import Classes from "../Pages/Classes/Classes";
 import Instractor from "../Pages/Instractor/Instractor";
+import MySelectedClass from "../Pages/Dashboard/User/MySelectedClass";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
             // users Routes
+            {
+                path: 'myselectedclass',
+                element: <MySelectedClass />
+            },
 
             // Instructor Routes
             {
