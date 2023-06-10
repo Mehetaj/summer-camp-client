@@ -5,7 +5,6 @@
 *:after {
   box-sizing: border-box;
 }
-
 body,
 html {
   background-color: #f6f9fc;
@@ -13,7 +12,7 @@ html {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-form {
+.form {
   max-width: 800px;
   margin: 80px auto;
 }
@@ -25,16 +24,6 @@ label {
   margin-top: 16px;
   display: block;
 }
-
-
-
-
-
-
-
-
-
-
 
 .result,
 .error {
@@ -51,11 +40,6 @@ label {
 .result {
   color: #666ee8;
 }
-
-/* 
-The StripeElement class is applied to the Element container by default.
-More info: https://stripe.com/docs/stripe-js/reference#element-options
-*/
 
 .StripeElement,
 .StripeElementIdeal,

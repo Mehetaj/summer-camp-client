@@ -41,7 +41,7 @@ const Login = () => {
                         <p className='text-xs'>Don't Have an Account? <Link to="/signup" className='text-red-400 font-semibold '>Sign Up Here</Link></p>
                     <div className="divider">OR</div>
                     </form>
-                    <div className='-mt-14'>
+                    <div className='-mt-'>
                     <GoogleLogin />
                     </div>
                 

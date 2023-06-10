@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaUserCheck } from 'react-icons/fa'
 import useAxiosSecure from '../../Hooks/useAxios';
 import Swal from 'sweetalert2';
@@ -7,6 +7,7 @@ import useAuth from '../../Hooks/useAuth';
 const PerClass = ({ classes }) => {
     // console.log(classes);
     const { photo, name, instructor, seats, price } = classes;
+    const [disabled,setDisabled] = useState(false)
     const [axiosSecure] = useAxiosSecure()
 
     // const { data: selected = [], isLoading, refetch } = useQuery({
@@ -17,26 +18,26 @@ const PerClass = ({ classes }) => {
     //     }
     // })
 
-    const {user} = useAuth()
+    const { user } = useAuth()
 
     const handleAddClass = (classes) => {
         // console.log(classes);
-        const {name, price,photo} = classes
-        const savedClass = {name,price,photo,email: user?.email}
+        const { name, price, photo } = classes
+        const savedClass = { name, price, photo, email: user?.email }
         axiosSecure.post("/selectedClass", savedClass)
-        .then(data => {
-            // console.log(data.data);
-            if (data.data) {
-                console.log(data.data);
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Your work has been saved',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-            }
-        })
+            .then(data => {
+                // console.log(data.data);
+                if (data.data) {
+                    console.log(data.data);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
 
     }
 
@@ -53,7 +54,9 @@ const PerClass = ({ classes }) => {
                 <p>Avaiable Seats : {seats}</p>
             </div>
 
-            <button disabled={!user} onClick={() => handleAddClass(classes)} className='btnp w-full'>Select The Class</button>
+            <div onClick={() => handleAddClass(classes)} >
+                <button disabled={!user || disabled} onClick={() => setDisabled(!disabled)}  className='btnp w-full'>Select The Class</button>
+            </div>
         </div>
     );
 };

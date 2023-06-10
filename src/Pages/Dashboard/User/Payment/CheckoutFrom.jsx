@@ -4,6 +4,7 @@ import './checkout.css'
 import useAuth from '../../../../Hooks/useAuth';
 import useAxiosSecure from '../../../../Hooks/useAxios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const CheckoutFrom = ({ data }) => {
     console.log(data);
@@ -15,24 +16,24 @@ const CheckoutFrom = ({ data }) => {
     const { user } = useAuth();
     const [clientSecret, setClientSecret] = useState('');
     const [processing, setProcessing] = useState(false);
-    const [id , setId] = useState("")
+    const [TransactionId, setTransactionId] = useState("")
 
     const [axiosSecure] = useAxiosSecure()
 
     useEffect(() => {
-        if (data) {
-            axiosSecure.post("/create-payment-intent", { price: data })
+        if (data?.price) {
+            axiosSecure.post("/create-payment-intent", { price: data.price })
                 .then(res => {
                     console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
-    }, [])
+    }, [axiosSecure, data?.price])
 
     const naviagte = useNavigate();
 
 
-
+    console.log(clientSecret);
 
 
 
@@ -68,18 +69,23 @@ const CheckoutFrom = ({ data }) => {
             {
                 payment_method: {
                     card: card,
+
                     billing_details: {
-                        name: user?.displayName || 'anonymous',
-                        email: user?.email || 'anonymous',
-                        date: new Date(),
-                        method: card
-                    },
+                        name: user.displayName || 'anonymous',
+                        email: user.email || 'unknown'
+                    }
+                    // billing_details: {
+                    //     name: user?.displayName || 'anonymous',
+                    //     email: user?.email || 'anonymous',
+                    //     date: new Date()
+                    // },
                 },
             },
         );
 
         if (confirmError) {
             setError(confirmError.message)
+            console.log(confirmError.message);
         }
 
         setProcessing(false)
@@ -89,17 +95,34 @@ const CheckoutFrom = ({ data }) => {
             console.log(paymentIntent);
             if (transactionId) {
 
-                setId(transactionId)
+                setTransactionId(transactionId)
+                const payment =
+                {
+                    name: data.name,
+                    email: user?.email,
+                    transactionId: transactionId,
+                    price: data?.price,
+                    item: data?._id,
+                    date: new Date(),
+                    status: 'pending'
+                }
+
+                axiosSecure.post("/payments", payment)
+                .then(res => {
+                    console.log(res.data.result.insertedId);
+                    if (res.data.insertedId) {
+                            // confirmed
+                    }
+                })
 
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Payment Successful',
+                    title: `TransactionId ${transactionId}`,
                     showConfirmButton: false,
                     timer: 1500
                 })
             }
-            // naviagte("/")
         }
 
     }
@@ -123,11 +146,11 @@ const CheckoutFrom = ({ data }) => {
                         },
                     }}
                 />
-                <button className='btn bg-rose-400 hover:bg-green-400 text-white w-full' type="submit" disabled={!stripe  }>
+                <button className='btn bg-rose-400 hover:bg-green-400 text-white w-full' type="submit" disabled={!stripe || user.role == 'Admin' || user.role == 'Instructor' || !clientSecret}>
                     Pay
                 </button>
                 <p className='error'> {error.message} </p>
-                <p>{id}</p>
+                {TransactionId && <p className='my-4'> Transaction Id is {TransactionId}</p>}
             </form>
         </div>
     );

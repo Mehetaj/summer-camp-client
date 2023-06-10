@@ -14,10 +14,11 @@ const GoogleLogin = () => {
                 console.log(result.user);
                 const user = result.user
                 if (result.user) {
-                    axiosSecure.post("/users", { name: user.displayName, email: user?.email, photo: photoURL })
+                    axiosSecure.post("/users", { name: user.displayName, email: user?.email, photo: user?.photoURL })
                         .then(res => {
-                            if (res.data.insertedId) {
-                                navigate("/")
+                            console.log(res.data);
+                            if (res.data) {
+                                // navigate("/")
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',

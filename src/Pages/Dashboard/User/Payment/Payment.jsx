@@ -15,7 +15,7 @@ const Payment = () => {
             .then(data => {
                 // console.log(data);
                 const filtered = data.find(item => item._id === id)
-                setData(filtered.price)
+                setData(filtered)
             })
     }, []);
     // console.log(typeof amount);

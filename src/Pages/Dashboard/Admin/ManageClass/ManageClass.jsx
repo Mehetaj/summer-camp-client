@@ -71,7 +71,7 @@ const ManageClass = () => {
 
 
     const handleFeedBack = (item) => {
-        console.log(item);
+
     }
 
     const handleDeny = (item) => {
@@ -83,12 +83,17 @@ const ManageClass = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: `SuccessFully Approved`,
+                    title: `SuccessFully Denied`,
                     showConfirmButton: false,
                     timer: 1500
                 })
             }
         })
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        Swal.fire("Send Feedback Complete")
     }
 
 
@@ -139,19 +144,22 @@ const ManageClass = () => {
                                     <th>{clas.seats}</th>
                                     <th>${clas.price}</th>
                                     <th>
-                                        <div>
-                                            <label htmlFor="my_modal_7" onClick={() => handleFeedBack(clas)} className='btnp'>Feedback</label>
-                                            <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-                                            <div className="modal">
-                                                <div className="modal-box">
-                                                    <h3 className="text-lg font-bold">Your Feedback</h3>
-                                                    <form>
-                                                        <textarea className="textarea my-4 textarea-bordered" placeholder="FEEDBACK"></textarea>
-                                                    </form>
+                                        {
+                                            clas.status == 'Denied' ? 'No Feedback' : <div>
+                                                <label htmlFor="my_modal_7" onClick={() => handleFeedBack(clas)} className='btnp'>Feedback</label>
+                                                <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                                                <div className="modal">
+                                                    <div className="modal-box">
+                                                        <h3 className="text-lg font-bold">Your Feedback</h3>
+                                                        <form onSubmit={onSubmit}>
+                                                            <textarea className="textarea my-4 block textarea-bordered" placeholder="FEEDBACK"></textarea>
+                                                            <input type="submit" className='btnp' value="Send" />
+                                                        </form>
+                                                    </div>
+                                                    <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
                                                 </div>
-                                                <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
                                             </div>
-                                        </div>
+                                        }
 
                                     </th>
                                     <th className='flex items-center'>
