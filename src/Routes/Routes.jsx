@@ -12,12 +12,11 @@ import ManageClass from "../Pages/Dashboard/Admin/ManageClass/ManageClass";
 import UpdateClass from "../Pages/Dashboard/Instractor/UpdateClass";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
-import FeedBackModal from "../Pages/Dashboard/Admin/ManageClass/FeedBackModal";
 import Classes from "../Pages/Classes/Classes";
 import Instractor from "../Pages/Instractor/Instractor";
 import MySelectedClass from "../Pages/Dashboard/User/MySelectedClass";
 import Payment from "../Pages/Dashboard/User/Payment/Payment";
-import CheckoutFrom from "../Pages/Dashboard/User/Payment/CheckoutFrom";
+import Error from "../Layout/Error";
 
 const router = createBrowserRouter([
     {
@@ -85,6 +84,10 @@ const router = createBrowserRouter([
                 element: <AdminRoute><ManageClass /></AdminRoute>
             }
         ]
+    },
+    {
+        path: '*',
+        element: <Error />
     }
 ])
 

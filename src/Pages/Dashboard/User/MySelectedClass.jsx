@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import useAuth from '../../../Hooks/useAuth';
+import React from 'react';
 import { FaTrash } from 'react-icons/fa'
 import useAxiosSecure from '../../../Hooks/useAxios';
-import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
-import Myclass from '../Instractor/Myclass';
-import PayBTN from './Payment/PayBTN';
 import useCart from '../../../Hooks/useCart';
 import { Link } from 'react-router-dom';
 

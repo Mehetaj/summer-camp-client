@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './checkout.css'
 import useAuth from '../../../../Hooks/useAuth';
 import useAxiosSecure from '../../../../Hooks/useAxios';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutFrom = ({ data }) => {
     console.log(data);
@@ -12,16 +13,23 @@ const CheckoutFrom = ({ data }) => {
     const elements = useElements();
     const [error, setError] = useState("")
     const { user } = useAuth();
-    const [clientSecret, setClientSecret] = useState('')
+    const [clientSecret, setClientSecret] = useState('');
+    const [processing, setProcessing] = useState(false);
+    const [id , setId] = useState("")
 
     const [axiosSecure] = useAxiosSecure()
 
     useEffect(() => {
-        axiosSecure.post("/create-payment-intent", {price: data})
-        .then(res => {
-            console.log(res.data);
-        })
-    },[])
+        if (data) {
+            axiosSecure.post("/create-payment-intent", { price: data })
+                .then(res => {
+                    console.log(res.data.clientSecret);
+                    setClientSecret(res.data.clientSecret);
+                })
+        }
+    }, [])
+
+    const naviagte = useNavigate();
 
 
 
@@ -53,6 +61,8 @@ const CheckoutFrom = ({ data }) => {
 
         // console.log(card);
 
+        setProcessing(true)
+
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -61,7 +71,8 @@ const CheckoutFrom = ({ data }) => {
                     billing_details: {
                         name: user?.displayName || 'anonymous',
                         email: user?.email || 'anonymous',
-                        date: new Date()
+                        date: new Date(),
+                        method: card
                     },
                 },
             },
@@ -71,7 +82,26 @@ const CheckoutFrom = ({ data }) => {
             setError(confirmError.message)
         }
 
-        console.log(paymentIntent);
+        setProcessing(false)
+
+        if (paymentIntent.status === 'succeeded') {
+            const transactionId = paymentIntent.id;
+            console.log(paymentIntent);
+            if (transactionId) {
+
+                setId(transactionId)
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Payment Successful',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            // naviagte("/")
+        }
+
     }
 
     return (
@@ -93,10 +123,11 @@ const CheckoutFrom = ({ data }) => {
                         },
                     }}
                 />
-                <button className='btn bg-rose-400 hover:bg-green-400 text-white w-full' type="submit" disabled={!stripe}>
+                <button className='btn bg-rose-400 hover:bg-green-400 text-white w-full' type="submit" disabled={!stripe  }>
                     Pay
                 </button>
                 <p className='error'> {error.message} </p>
+                <p>{id}</p>
             </form>
         </div>
     );
