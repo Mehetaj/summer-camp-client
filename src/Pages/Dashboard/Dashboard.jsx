@@ -59,7 +59,7 @@ const Dashboard = () => {
                         </>
                         :
                         <>
-                            <li><Link>My Selected Classes</Link></li>
+                            <li><Link to="/dashboard/myselectedclass">My Selected Classes</Link></li>
                             <li><Link>My Enrolled Classes</Link></li>
                             <li><Link>Payment History</Link></li>
                         </>}

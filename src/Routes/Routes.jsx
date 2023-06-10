@@ -16,6 +16,7 @@ import FeedBackModal from "../Pages/Dashboard/Admin/ManageClass/FeedBackModal";
 import Classes from "../Pages/Classes/Classes";
 import Instractor from "../Pages/Instractor/Instractor";
 import MySelectedClass from "../Pages/Dashboard/User/MySelectedClass";
+import Payment from "../Pages/Dashboard/User/Payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,11 @@ const router = createBrowserRouter([
             {
                 path: 'myselectedclass',
                 element: <MySelectedClass />
+            },
+            {
+                path: 'payment/:id',
+                element: <Payment />,
+                loader: () => fetch(``)
             },
 
             // Instructor Routes

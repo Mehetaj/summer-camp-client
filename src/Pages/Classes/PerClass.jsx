@@ -2,6 +2,7 @@ import React from 'react';
 import { FaUserCheck } from 'react-icons/fa'
 import useAxiosSecure from '../../Hooks/useAxios';
 import Swal from 'sweetalert2';
+import useAuth from '../../Hooks/useAuth';
 
 const PerClass = ({ classes }) => {
     // console.log(classes);
@@ -16,10 +17,16 @@ const PerClass = ({ classes }) => {
     //     }
     // })
 
+    const {user} = useAuth()
+
     const handleAddClass = (classes) => {
         console.log(classes);
 
-        axiosSecure.post("/selectedClass", classes)
+        const {name, price,photo} = classes
+
+        const savedClass = {name,price,photo,email: user?.email}
+
+        axiosSecure.post("/selectedClass", savedClass)
         .then(data => {
             // console.log(data.data);
             if (data.data.insertedId) {
@@ -48,7 +55,7 @@ const PerClass = ({ classes }) => {
                 <p>Avaiable Seats : {seats}</p>
             </div>
 
-            <button onClick={() => handleAddClass(classes)} className='btnp w-full'>Select The Class</button>
+            <button disabled={!user} onClick={() => handleAddClass(classes)} className='btnp w-full'>Select The Class</button>
         </div>
     );
 };
