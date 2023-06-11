@@ -7,77 +7,97 @@ import { Link } from 'react-router-dom';
 const Myclass = () => {
     const [classes, setClasses] = useState([])
     const { user } = useAuth();
-    const [axiosSecure] = useAxiosSecure()
+    const [id, setId] = useState("")
+    const [axiosSecure] = useAxiosSecure();
+    const [payment, setPayment] = useState([]) 
     useEffect(() => {
-        // fetch('http://localhost:5000/classes')
-        // .then(res => res.json())
-        // .then(data => {
-        //     console.log(data);
-        //     setClasses(data)
-        // })
         axiosSecure.get('/classes')
             .then(data => {
                 // console.log(data.data);
                 const filtered = data.data.filter(item => item.email === user?.email)
-                // console.log(filtered);
-                setClasses(filtered)
+                console.log(filtered[0]._id);
+                console.log(filtered);
+                setId(filtered[0].email)
+
+        setClasses(filtered)
+    })
+}, [])
+
+    useEffect(() => {
+        axiosSecure.get("/payments")
+            .then(res => {
+                // const payment = res.data.filter(pay => pay._id == id)
+                console.log(res.data);
+                
+                // console.log(id);
+                if (id) {
+                    console.log(id);
+                    const pay = res.data.filter(pay => pay.email == id)
+                    if (pay) {
+                        setPayment(pay)
+                    }
+                }
             })
     }, [])
-    return (
-        <div className='m-14'>
-            <h1 className='text-3xl font-bold my-10'>My Classes</h1>
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead className='bg-rose-400 text-lg text-white'>
-                        <tr>
-                            <th>#</th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Total Student</th>
-                            <th>Status</th>
-                            <th>Feedback</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            classes.map(
-                                (item, i) =>
-                                    <tr to={i}>
-                                        <th>{i + 1}</th>
-                                        <td>
-                                            <div className="flex items-center space-x-3">
-                                                <div className="avatar">
-                                                    <div className="mask mask-squircle w-12 h-12">
-                                                        <img src={item?.photo} alt="Avatar Tailwind CSS Component" />
-                                                    </div>
+return (
+    <div className='m-14'>
+        <h1 className='text-3xl font-bold my-10'>My Classes</h1>
+        <div className="overflow-x-auto">
+            <table className="table">
+                {/* head */}
+                <thead className='bg-rose-400 text-lg text-white'>
+                    <tr>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Total Student</th>
+                        <th>Status</th>
+                        <th>Feedback</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        classes.map(
+                            (item, i) =>
+                                <tr key={i}>
+                                    <th>{i + 1}</th>
+                                    <td>
+                                        <div className="flex items-center space-x-3">
+                                            <div className="avatar">
+                                                <div className="mask mask-squircle w-12 h-12">
+                                                    <img src={item?.photo} alt="Avatar Tailwind CSS Component" />
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            {item.name}
-                                        </td>
-                                        <td>0</td>
-                                        <td>
-                                            { item.status? item.status : 'Pending'}
-                                        </td>
-                                        <td>
-                                            No Feedback
-                                        </td>
-                                        <th>
-                                            <Link to={`/dashboard/updateclass/${item._id}`} className="btn bg-rose-400 text-white btn-ghost text-xl"><FaPenAlt /></Link>
-                                        </th>
-                                    </tr>
-                            )
-                        }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {item.name}
+                                    </td>
+                                    <td>
+                                        {
+                                            payment ? payment.length : 0
+                                        }
+                                    </td>
+                                    <td>
+                                        {item.status ? item.status : 'Pending'}
+                                    </td>
+                                    <td>
+                                        No Feedback
+                                    </td>
+                                    <th>
+                                        <Link to={`/dashboard/updateclass/${item._id}`} className="btn bg-rose-400 text-white btn-ghost text-xl"><FaPenAlt /></Link>
+                                    </th>
+                                </tr>
+                        )
+                    }
 
-                    </tbody>
+                </tbody>
 
-                </table>
-            </div>
+            </table>
         </div>
-    );
+    </div>
+);
 };
 
 export default Myclass;

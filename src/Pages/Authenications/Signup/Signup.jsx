@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosSecure from '../../../Hooks/useAxios';
 import Swal from 'sweetalert2';
+import GoogleLogin from '../SocialLogin/GoogleLogin';
 const img_hosting_token = import.meta.env.VITE_image_upload_token
 
 const Signup = () => {
@@ -137,13 +138,19 @@ const Signup = () => {
                         <label className="peer-focus:font-medium absolute text-sm text-rose-500 dark:text-rose-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm Password</label>
                     </div>
                     <div className="relative mt-10 z-0 w-full group">
-                        <input {...register("photo", { required: true })} type="file" className="file-input mb-6 file-input-bordered file-input-secondary mt-3 w-full max-w-xs" />
+                        <input {...register("photo", { required: true })} type="file" className="file-input my-6 file-input-bordered file-input-secondary mt-6 w-full max-w-xs" />
                         <label className="peer-focus:font-medium block absolute text-sm text-rose-500 dark:text-rose-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600  peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Photo URL</label>
                     </div>
                     <input className='btnp w-full my-4' type="submit" value="Login" />
                     <p>Already Have an Account? <Link to="/login" className='text-red-400 font-semibold'>Login Here</Link></p>
                     {error && <p className='text-red-500 animate-bounce mt-4'>{error}... Try Again</p>}
-                    {errors.password && <p className='text-red-500 animate-bounce mt-4'>{errors.password.message}</p>}
+                    {errors.password && <p className='text-red-500 animate-bounce m-4'>{errors.password.message}</p>}
+
+                    <div className="divider">OR</div>
+
+                    <div className='mt-5'>
+                    <GoogleLogin />
+                    </div>
                 </form>
             </div>
         </div>

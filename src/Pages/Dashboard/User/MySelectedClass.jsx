@@ -4,21 +4,22 @@ import useAxiosSecure from '../../../Hooks/useAxios';
 import Swal from 'sweetalert2';
 import useCart from '../../../Hooks/useCart';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 const MySelectedClass = () => {
     const [axiosSecure] = useAxiosSecure()
 
 
-    // const { data: myClass = [], refetch } = useQuery({
-    //     queryKey: ['deleteClass'],
-    //     queryFn: async () => {
-    //         const res = await axiosSecure.get("/selectedClass");
-    //         const filtered = res.data.filter(item => item.email === user.email)
-    //         return filtered
-    //     }
-    // })
+    const { data: myClass = [], refetch } = useQuery({
+        queryKey: ['deleteClass'],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/selectedClass");
+            const filtered = res.data.filter(item => item.email === user.email)
+            return filtered
+        }
+    })
 
-    const [cart, refetch] = useCart()
+    // const [cart, refetch] = useCart()
 
     const handleDelete = (item) => {
         console.log(item._id);
@@ -76,7 +77,7 @@ const MySelectedClass = () => {
                         <tbody className=' font-semibold'>
                             {/* row 1 */}
                             {
-                                cart.map((myClass, index) => <tr key={index}>
+                                myClass.map((myClass, index) => <tr key={index}>
                                     <th>{index + 1}</th>
                                     <td>
                                         <div className="flex items-center space-x-3">

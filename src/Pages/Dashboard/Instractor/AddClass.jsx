@@ -1,7 +1,6 @@
 import React from 'react';
 import img from '../../../assets/business-team-discussing-ideas-startup_74855-4380.avif'
 import useAuth from '../../../Hooks/useAuth';
-import useAxiosSecure from '../../../Hooks/useAxios';
 import Swal from 'sweetalert2';
 
 const AddClass = () => {
@@ -46,7 +45,7 @@ const AddClass = () => {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: 'Food added on the cart',
+                            title: 'Class Added',
                             showConfirmButton: false,
                             timer: 1500
                         })
@@ -60,11 +59,11 @@ const AddClass = () => {
             <div>
                 <form onSubmit={handleAddClass} className='w-[500px] p-10 border border-rose-200'>
                     <div className="relative z-0 w-full mb-6 group">
-                        <input type="text" name='name' className="block py-2.5 px-0 w-full text-sm text-rose-900 bg-transparent border-0 border-b-2 border-rose-300 appearance-none dark:text-white dark:border-rose-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+                        <input type="text" name='name' className="block py-2.5 px-0 w-full text-sm text-rose-900 bg-transparent border-0 border-b-2 border-rose-300 appearance-none  dark:text-white dark:border-rose-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
                         <label className="peer-focus:font-medium absolute text-sm text-rose-500 dark:text-rose-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Name</label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
-                        <label className="peer-focus:font-medium  text-sm text-rose-500 dark:text-rose-400 duration-300 transform mb-10 -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Image</label>
+                        <label className="peer-focus:font-medium  text-sm text-rose-500 dark:text-rose-400 duration-300 transform mt-10 -mb-6 -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Image</label>
                         <input name='image' type="file" className="file-input file-input-bordered block file-input-secondary w-full max-w-xs" required />
                     </div>
                     <div className="relative z-0 w-full mb-6 group">

@@ -5,7 +5,7 @@ import logo from '/logo.jpg'
 const Footer = () => {
     return (
         <div className='mt-20'>
-            <footer className="footer text-black p-10 bg-red-800 bg-opacity-10">
+            <footer className="footer text-black p-10 bg-gray-400 bg-opacity-10">
                 <div>
                     <img className='w-20 h-20 rounded-tl-3xl rounded-b-full rounded-tr-full' src={logo} alt="" />
                     <p>Musc Hub For Learing Music<br />Providing reliable tech since 2017</p>

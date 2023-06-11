@@ -21,3 +21,16 @@
     cursor: pointer;
     transition: all ease 0.5s;
 }
+
+.dark-theme a{
+    color: gray !important;
+}
+
+.dark-theme {
+    background-color: rgba(0, 0, 0, 0.867);
+    color: white !important;
+}
+
+.dark-theme p {
+    color: rgba(245, 245, 245, 0.599);
+}
