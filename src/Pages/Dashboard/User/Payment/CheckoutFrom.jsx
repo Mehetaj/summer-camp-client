@@ -99,12 +99,15 @@ const CheckoutFrom = ({ data }) => {
                 const payment =
                 {
                     name: data.name,
+                    userName: user.displayName,
                     email: user?.email,
                     transactionId: transactionId,
                     price: data?.price,
                     item: data?._id,
                     date: new Date(),
-                    status: 'pending'
+                    status: 'pending',
+                    photo: data.photo,
+                    instructorEmail: data.email
                 }
 
                 axiosSecure.post("/payments", payment)

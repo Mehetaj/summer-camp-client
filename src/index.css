@@ -31,6 +31,16 @@
     color: white !important;
 }
 
-.dark-theme p {
-    color: rgba(245, 245, 245, 0.599);
+.dark-theme p, tr  {
+    color: white;
+
+}
+
+.light-theme {
+    background-color: white !important;
+    color: black !important;
+}
+
+.light-theme tr, p {
+    color: black;
 }

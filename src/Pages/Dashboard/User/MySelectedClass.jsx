@@ -2,19 +2,21 @@ import React from 'react';
 import { FaTrash } from 'react-icons/fa'
 import useAxiosSecure from '../../../Hooks/useAxios';
 import Swal from 'sweetalert2';
-import useCart from '../../../Hooks/useCart';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../../Hooks/useAuth';
 
 const MySelectedClass = () => {
     const [axiosSecure] = useAxiosSecure()
+    const { user } = useAuth();
 
 
     const { data: myClass = [], refetch } = useQuery({
-        queryKey: ['deleteClass'],
+        queryKey: ['selectedClass'],
         queryFn: async () => {
             const res = await axiosSecure.get("/selectedClass");
-            const filtered = res.data.filter(item => item.email === user.email)
+            const filtered = res.data.filter(item => item.userEmail === user.email)
+            console.log(res);
             return filtered
         }
     })
@@ -59,7 +61,7 @@ const MySelectedClass = () => {
 
     return (
         <div className='m-10'>
-            <h1 className='text-3xl font-bold my-4'>Here Your Seledted Class</h1>
+            <h1 className='text-3xl font-bold my-4'>Here Your Selected Class</h1>
 
             <div>
                 <div className="overflow-x-auto">
@@ -98,7 +100,7 @@ const MySelectedClass = () => {
                                     </td>
                                     <th>
                                         {/* <Link to={`/dashbaord/payment`} className="btn w-[150px] btn-ghost ">Pay <span>${myClass.price}</span></Link> */}
-                                        <Link to={`/dashboard/payment/${myClass._id}`}> <button className='btn'>Pay</button></Link> 
+                                        <Link to={`/dashboard/payment/${myClass._id}`}> <button className='btn'>Pay</button></Link>
                                     </th>
                                 </tr>)
                             }

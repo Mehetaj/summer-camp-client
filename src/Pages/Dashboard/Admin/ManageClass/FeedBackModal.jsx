@@ -1,19 +1,30 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import useAxiosSecure from '../../../../Hooks/useAxios';
 
 const FeedBackModal = () => {
+    const data = useLoaderData();
+    const [axiosSecure] = useAxiosSecure();
+    console.log(data);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const feedback = e.target.feedback.value;
+        console.log(feedback);
+        
+        axiosSecure.put(`/feedback/${data._id}`, feedback)
+        .then(res => {
+            console.log(res.data);
+        })
+    }
+
     return (
-        <div>
-            <label htmlFor="my_modal_7" onClick={() => handleFeedBack(clas)} className='btnp'>Feedback</label>
-            <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box">
-                    <h3 className="text-lg font-bold">Your Feedback</h3>
-                    <form>
-                        <textarea className="textarea my-4 textarea-bordered" placeholder="FEEDBACK"></textarea>
-                    </form>
-                </div>
-                <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
-            </div>
+        <div className='m-10'>
+            <h1 className='text-4xl font-bold'>Write Your Feedback for change the status</h1>
+            <form onSubmit={onSubmit} className='my-10'>
+                <textarea  placeholder='Send Feedback' rows={8} cols={80} className=' bg-gray-200 p-4 form-control' type="text" name="feedback" id="" />
+                <input type="submit" value="Send Feedback" className='btnp my-6' />
+            </form>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import img from '../../../assets/business-team-discussing-ideas-startup_74855-4380.avif'
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
@@ -7,7 +7,7 @@ const AddClass = () => {
     const { user } = useAuth()
     // const [axiosSecure] = useAxiosSecure()
     // console.log(user);
-    // console.log(user.email);
+    // console.log(user.email)
 
     const handleAddClass = (e) => {
         e.preventDefault();

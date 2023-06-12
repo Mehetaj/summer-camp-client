@@ -5,7 +5,7 @@ const OneClassDemo = ({classes}) => {
     const {photo,name,instructor, email} = classes
     return (
         <div className='border w-[400px] border-red-500 rounded-xl'>
-            <img className='w-[400px] rounded-t-xl' src={photo} alt="" />
+            <img className='w-[400px] h-[300px] rounded-t-xl' src={photo} alt="" />
             <div className='p-6'>
                 <p className='text-3xl font-bold my-4'>{name}</p>
 

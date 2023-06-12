@@ -17,6 +17,9 @@ import Instractor from "../Pages/Instractor/Instractor";
 import MySelectedClass from "../Pages/Dashboard/User/MySelectedClass";
 import Payment from "../Pages/Dashboard/User/Payment/Payment";
 import Error from "../Layout/Error";
+import History from "../Pages/Dashboard/User/History/History";
+import Enrolled from "../Pages/Dashboard/User/Enrolled/Enrolled";
+import FeedBackModal from "../Pages/Dashboard/Admin/ManageClass/FeedBackModal";
 
 const router = createBrowserRouter([
     {
@@ -58,9 +61,17 @@ const router = createBrowserRouter([
                 path: 'payment/:id',
                 element: <PrivateRoute><Payment /></PrivateRoute>
             },
+            {
+                path: 'paymenthistory',
+                element: <PrivateRoute><History /></PrivateRoute>
+            },
+            {
+                path: 'enrolled',
+                element: <PrivateRoute><Enrolled /></PrivateRoute>
+            }
 
             // Instructor Routes
-            {
+            , {
                 path: 'add-class',
                 element: <InstructorRoute><AddClass /></InstructorRoute>
             },
@@ -82,6 +93,11 @@ const router = createBrowserRouter([
             {
                 path: 'manageclass',
                 element: <AdminRoute><ManageClass /></AdminRoute>
+            },
+            {
+                path: 'feedback/:id',
+                element: <AdminRoute><FeedBackModal /></AdminRoute>,
+                loader: ({params}) => fetch(`http://localhost:5000/classes/${params.id}`)
             }
         ]
     },

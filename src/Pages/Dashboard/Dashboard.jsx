@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import logo from '/logo.jpg'
 import { Link, Outlet } from 'react-router-dom';
 import useAdmin from '../../Hooks/useAdmin'
 import useInstructor from '../../Hooks/useInstructor';
+import { FaHome } from 'react-icons/fa'
 
 const Dashboard = () => {
     // const [isInstructor, setInstructor] = useState(false);
@@ -35,7 +36,7 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
+                    <ul className="menu p-4 w-80 h-full text-black bg-gray-100">
                         <div className='flex gap-4 items-center'>
                             <img className='w-[100px] h-[100px] rounded-full' src={logo} alt="" />
                             <p className='text-2xl font-bold'>Music Hub</p>
@@ -53,8 +54,8 @@ const Dashboard = () => {
                                 :
                                 <>
                                     <li><Link to="/dashboard/myselectedclass">My Selected Classes</Link></li>
-                                    <li><Link>My Enrolled Classes</Link></li>
-                                    <li><Link>Payment History</Link></li>
+                                    <li><Link to="/dashboard/enrolled">My Enrolled Classes</Link></li>
+                                    <li><Link to="/dashboard/paymenthistory">Payment History</Link></li>
                                 </>}
                         <Link className='btnp w-full' to="/">Back to Home</Link>
                     </ul>

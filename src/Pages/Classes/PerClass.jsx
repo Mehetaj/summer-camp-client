@@ -23,7 +23,7 @@ const PerClass = ({ classes }) => {
     const handleAddClass = (classes) => {
         // console.log(classes);
         const { name, price, photo } = classes
-        const savedClass = { name, price, photo, email: user?.email }
+        const savedClass = { name, price, photo, userName: user.displayName, userEmail : user.email,  email: classes?.email }
         if (!user) {
 
 
@@ -66,7 +66,7 @@ const PerClass = ({ classes }) => {
             </div>
 
             <div onClick={() => handleAddClass(classes)} >
-                <button disabled={ disabled || user?.role == 'Admin' || user?.role == 'Instructor' || seats.length == 0} onClick={() => setDisabled(!disabled)} className='btnp w-full'>Select The Class</button>
+                <button disabled={ disabled || seats.length == 0} onClick={() => setDisabled(!disabled)} className='btnp w-full'>Select The Class</button>
             </div>
         </div>
     );
