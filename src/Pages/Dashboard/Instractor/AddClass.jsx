@@ -28,13 +28,13 @@ const AddClass = () => {
                 const imgUrl = imgData.data.display_url;
                 const newClass = {name,seats,price, photo: imgUrl, instructor: user?.displayName, email: user?.email}
 
-                // fetch("http://localhost:5000/allclass", {
+                // fetch("https://summer-camp-server-pi-dun.vercel.app/allclass", {
                 //     method: 'POST',
                 //     headers: { 'content-type': 'application/json' },
                 //     body: JSON.stringify(newClass)
                 // })
 
-                fetch("http://localhost:5000/classes", {
+                fetch("https://summer-camp-server-pi-dun.vercel.app/classes", {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(newClass)

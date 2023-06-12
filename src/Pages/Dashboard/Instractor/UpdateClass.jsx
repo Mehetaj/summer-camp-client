@@ -19,7 +19,7 @@ const UpdateClass = () => {
 
         const updatedClass = {price, seats, name};
 
-        fetch("http://localhost:5000/classes", {
+        fetch("https://summer-camp-server-pi-dun.vercel.app/classes", {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(updatedClass)

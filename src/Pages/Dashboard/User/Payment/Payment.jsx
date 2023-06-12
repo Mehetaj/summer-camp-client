@@ -10,7 +10,7 @@ const Payment = () => {
     const [data, setData] = useState()
     // console.log(id);
     useEffect(() => {
-        fetch("http://localhost:5000/selectedClass")
+        fetch("https://summer-camp-server-pi-dun.vercel.app/selectedClass")
             .then(res => res.json())
             .then(data => {
                 // console.log(data);

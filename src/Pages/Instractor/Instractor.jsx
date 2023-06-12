@@ -4,7 +4,7 @@ import Insta from './Insta';
 const Instractor = () => {
     const [instructor, setInstructor] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/allinstructors")
+        fetch("https://summer-camp-server-pi-dun.vercel.app/allinstructors")
         .then(res => res.json())
         .then(data => {
             setInstructor(data)

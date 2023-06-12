@@ -25,7 +25,7 @@ const ManageClass = () => {
     //     console.log(e);
     //     const updatedStatus = { status }
 
-    //     fetch("http://localhost:5000/classes", {
+    //     fetch("https://summer-camp-server-pi-dun.vercel.app/classes", {
     //         method: 'PUT',
     //         headers: { 'content-type': 'application/json' },
     //         body: JSON.stringify(status)
@@ -53,7 +53,7 @@ const ManageClass = () => {
 
     const handleApproved = (item) => {
         console.log(item);
-        fetch(`http://localhost:5000/classes/${item._id}`, {
+        fetch(`https://summer-camp-server-pi-dun.vercel.app/classes/${item._id}`, {
             method: 'PUT'
         }).then(res => res.json()).then(data => {
             if (data.modifiedCount) {
@@ -74,7 +74,7 @@ const ManageClass = () => {
 
     const handleDeny = (item) => {
         console.log(item);
-        fetch(`http://localhost:5000/classes/${item._id}`, { method: 'PATCH' }).then(res => res.json()).then(data => {
+        fetch(`https://summer-camp-server-pi-dun.vercel.app/classes/${item._id}`, { method: 'PATCH' }).then(res => res.json()).then(data => {
             if (data.modifiedCount) {
                 console.log(data);
                 refetch();
@@ -141,7 +141,7 @@ const ManageClass = () => {
                                     <th>${clas.price}</th>
                                     <th>
                                         {
-                                            !clas.status === 'Approved' ? 'No Feedback' : 
+                                            clas.status === 'Approved' ? 'No Feedback' : 
                                            <Link to={`/dashboard/feedback/${clas._id}`}><button className='btn'>Feedback</button></Link>
                                         }
 

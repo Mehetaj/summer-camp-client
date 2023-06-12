@@ -9,7 +9,7 @@ const Enrolled = () => {
     const [datas, setData] = useState([])
     const { axiosSecure } = useAxiosSecure()
     useEffect(() => {
-        axios.get("http://localhost:5000/payments")
+        axios.get("https://summer-camp-server-pi-dun.vercel.app/payments")
             .then(res => {
                 const data = res.data;
                 const filter = data.filter(item => item.email === user.email)

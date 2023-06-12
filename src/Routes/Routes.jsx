@@ -83,7 +83,7 @@ const router = createBrowserRouter([
             {
                 path: 'updateclass/:id',
                 element: <InstructorRoute><UpdateClass /></InstructorRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/classes/${params.id}`)
+                loader: ({ params }) => fetch(`https://summer-camp-server-pi-dun.vercel.app/classes/${params.id}`)
             },
             // Admin Routes
             {
@@ -97,7 +97,7 @@ const router = createBrowserRouter([
             {
                 path: 'feedback/:id',
                 element: <AdminRoute><FeedBackModal /></AdminRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/classes/${params.id}`)
+                loader: ({params}) => fetch(`https://summer-camp-server-pi-dun.vercel.app/classes/${params.id}`)
             }
         ]
     },
